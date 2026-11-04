@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 import { ConfigService } from 'tabby-core'
 import { OpenAICompatibleProvider, normalizeBaseUrl } from './llm/openai-compatible'
 import { ModelInfo } from './llm/models'
+import { AgentService } from './agent.service'
 import { CONFIG_KEY } from '../types/config'
 
 export type CatalogStatus =
@@ -32,7 +33,7 @@ export class ModelCatalogService {
     private fetchedAt = 0
     private inflight: Promise<void> | null = null
 
-    constructor (private config: ConfigService, private zone: NgZone) {}
+    constructor (private config: ConfigService, private zone: NgZone, private agent: AgentService) {}
 
     get state$ (): Observable<CatalogState> {
         return this.state
@@ -57,7 +58,12 @@ export class ModelCatalogService {
         const keep = key === this.key ? this.state.value.models : []
         this.key = key
         this.set({ status: 'loading', models: keep })
-        const provider = new OpenAICompatibleProvider({ endpoint: settings.endpoint, apiKey: settings.apiKey, model: settings.model })
+        const provider = new OpenAICompatibleProvider({
+            endpoint: settings.endpoint,
+            apiKey: settings.apiKey,
+            model: settings.model,
+            sessionId: this.agent.session.id,
+        })
         const run = provider.listModels().then(
             models => {
                 if (this.key !== key) return

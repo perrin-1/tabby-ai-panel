@@ -147,6 +147,7 @@ Tool results are cut to `maxToolResultChars` (head + tail). `fitContextBudget()`
 `OpenAICompatibleProvider` (`llm/openai-compatible.ts`):
 
 - normalizes the endpoint to a base URL and calls `<base>/v1/chat/completions` (`stream: true`, `tools`, `tool_choice: "auto"`) and `<base>/v1/models`,
+- sends the active session's id (the same id as its file name, e.g. `s_mfl2x9k01a3`) as an `x-tabby-session-id` header on every request: chat completions, model lists and connection tests,
 - uses Node's `http`/`https` instead of `fetch`, so no CORS is involved. It follows one redirect,
 - parses Server-Sent Events. It reads text, tool-call deltas, reasoning from both `reasoning_content` and `reasoning`, `usage`, and in-stream `error` objects. It also accepts a plain JSON completion from servers that ignore `stream`,
 - parses model lists in the OpenAI shape (`{data: […]}`), Ollama's `{models: […]}`, or a bare array. It picks up context length and tool support where the server provides them (OpenRouter).

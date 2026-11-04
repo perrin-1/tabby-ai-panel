@@ -118,7 +118,13 @@ export class AgentService {
                 this.notifications.error('AI panel: extra request parameters are not valid JSON')
             }
         }
-        return new OpenAICompatibleProvider({ endpoint: s.endpoint, apiKey: s.apiKey, model: s.model, extraParams: extra })
+        return new OpenAICompatibleProvider({
+            endpoint: s.endpoint,
+            apiKey: s.apiKey,
+            model: s.model,
+            extraParams: extra,
+            sessionId: this.session.id,
+        })
     }
 
     // -------------------------------------------------------------- sessions

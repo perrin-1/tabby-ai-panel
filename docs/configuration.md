@@ -17,7 +17,7 @@ Change all settings in **Settings → AI Panel**. They are stored in Tabby's own
 | Setting | Key | Default | Description |
 | --- | --- | --- | --- |
 | Endpoint | `endpoint` | `''` | Base URL of an OpenAI-compatible server. A trailing `/v1` or `/v1/chat/completions` is accepted and stripped. See [Connect a model](getting-started.md#connect-a-model). |
-| API key | `apiKey` | `''` | Sent as `Authorization: Bearer <key>`. Empty means no header. |
+| API key | `apiKey` | `''` | Sent as `Authorization: Bearer <key>`. Empty means no header. Every request also carries an `x-tabby-session-id` header with the id of the current [session](sessions.md#storage). |
 | Model | `model` | `''` | Model id sent with each request. When empty, the request uses the id `default`, which some single-model servers accept. Also switchable from the composer. |
 | Extra request parameters (JSON) | `extraParamsText` | `''` | A JSON object merged into every chat request. See [below](#extra-request-parameters). |
 | Additional instructions | `additionalSystemPrompt` | `''` | Text appended to the built-in system prompt. See [below](#additional-instructions). |

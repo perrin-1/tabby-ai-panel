@@ -30,6 +30,8 @@ export interface ProviderConfig {
     apiKey?: string
     model: string
     extraParams?: Record<string, any>
+    /** Sent as the `x-tabby-session-id` header on every request. */
+    sessionId?: string
 }
 
 export interface ChatProvider {

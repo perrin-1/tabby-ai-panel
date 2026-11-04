@@ -10,6 +10,9 @@ export function normalizeBaseUrl (endpoint: string): string {
     return base.replace(/\/+$/, '')
 }
 
+/** Request header carrying the id of the panel session a request belongs to. */
+export const SESSION_ID_HEADER = 'x-tabby-session-id'
+
 export function chatCompletionsUrl (endpoint: string): string {
     return `${normalizeBaseUrl(endpoint)}/v1/chat/completions`
 }
@@ -101,6 +104,11 @@ export class OpenAICompatibleProvider implements ChatProvider {
         const key = this.config.apiKey?.trim()
         if (key) {
             h.Authorization = `Bearer ${key}`
+        }
+        const sessionId = this.config.sessionId?.trim()
+        // Node rejects header values with control or non-ASCII characters
+        if (sessionId && /^[\x21-\x7e]+$/.test(sessionId)) {
+            h[SESSION_ID_HEADER] = sessionId
         }
         return h
     }

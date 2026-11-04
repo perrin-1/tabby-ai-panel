@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { ConfigService, PlatformService } from 'tabby-core'
 import { OpenAICompatibleProvider } from '../../core/llm/openai-compatible'
+import { AgentService } from '../../core/agent.service'
 import { SessionStoreService } from '../../core/session-store.service'
 import { ModelCatalogService } from '../../core/model-catalog.service'
 import { AiPanelConfig, CONFIG_KEY, DEFAULT_CONFIG } from '../../types/config'
@@ -23,6 +24,7 @@ export class AiPanelSettingsComponent implements OnInit, OnDestroy {
         private platform: PlatformService,
         public store: SessionStoreService,
         private catalog: ModelCatalogService,
+        private agent: AgentService,
     ) {}
 
     ngOnInit (): void {
@@ -78,7 +80,12 @@ export class AiPanelSettingsComponent implements OnInit, OnDestroy {
         this.testing = true
         this.testResult = null
         try {
-            const provider = new OpenAICompatibleProvider({ endpoint: this.c.endpoint, apiKey: this.c.apiKey, model: this.c.model })
+            const provider = new OpenAICompatibleProvider({
+                endpoint: this.c.endpoint,
+                apiKey: this.c.apiKey,
+                model: this.c.model,
+                sessionId: this.agent.session.id,
+            })
             const result = await provider.ping()
             const count = result.models?.length ?? 0
             const modelNote = count ? ` ${count} model${count === 1 ? '' : 's'} available.` : ''

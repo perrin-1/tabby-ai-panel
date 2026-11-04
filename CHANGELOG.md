@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+
+- Every request to the model server carries an `x-tabby-session-id` header with the current session's id (the same id as its session file), so proxies and servers can group requests by session.
+
 ### Documentation
 
 - New README with logo, badges and an up-to-date screenshot. Detailed guides moved to [`docs/`](docs/README.md): getting started, usage, configuration, sessions, safety, agent tools, architecture and development.
