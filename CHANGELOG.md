@@ -4,11 +4,20 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-11-04
+
 ### Added
 
 - Every request to the model server carries an `x-tabby-session-id` header with the current session's id (the same id as its session file), so proxies and servers can group requests by session.
 
+### Fixed
+
+- `npm run pack` works on Windows: without `zip` it falls back to the built-in `tar`.
+- `tests/docs.test.ts` passes on Windows checkouts with CRLF line endings.
+
 ### Documentation
+
+- Windows example for installing from a zip archive.
 
 - New README with logo, badges and an up-to-date screenshot. Detailed guides moved to [`docs/`](docs/README.md): getting started, usage, configuration, sessions, safety, agent tools, architecture and development.
 - `npm run badges` renders the README badges locally with badge-maker. It also runs automatically on `npm version`.
@@ -73,7 +82,8 @@ All notable changes to this project are documented here. The format follows [Kee
 - Reviewable execution: risk badges, per-session approval modes, always-confirmed destructive patterns, live output, Send Ctrl+C, and hotkeys.
 - Streaming client for OpenAI-compatible endpoints over Node HTTP, with tool calling, reasoning tokens and context budgeting.
 
-[Unreleased]: https://github.com/giejqf/tabby-ai-panel/compare/3e93d65...HEAD
+[Unreleased]: https://github.com/perrin-1/tabby-ai-panel/compare/v0.1.6...HEAD
+[0.1.6]: https://github.com/perrin-1/tabby-ai-panel/releases/tag/v0.1.6
 [0.1.5]: https://github.com/giejqf/tabby-ai-panel/commit/3e93d65
 [0.1.4]: https://github.com/giejqf/tabby-ai-panel/commit/2a14e30
 [0.1.3]: https://github.com/giejqf/tabby-ai-panel/commit/87d53fa

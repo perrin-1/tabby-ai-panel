@@ -35,7 +35,13 @@ if (fs.existsSync(path.join(root, 'docs', 'screenshot.png'))) {
 
 const zip = path.join(root, 'release', `${pkg.name}-${pkg.version}.zip`)
 fs.rmSync(zip, { force: true })
-execFileSync('zip', ['-qr', zip, pkg.name], { cwd: stage })
+try {
+    execFileSync('zip', ['-qr', zip, pkg.name], { cwd: stage })
+} catch (e) {
+    if (e.code !== 'ENOENT') throw e
+    // no `zip` (e.g. Windows): bsdtar ships with Windows 10+ and macOS, `-a` picks the format from the suffix
+    execFileSync('tar', ['-a', '-cf', zip, pkg.name], { cwd: stage })
+}
 fs.rmSync(stage, { recursive: true, force: true })
 console.log(`Packed ${path.relative(root, zip)} (${(fs.statSync(zip).size / 1024).toFixed(0)} KB)`)
 console.log('Unzip inside <Tabby config dir>/plugins/node_modules/ and restart Tabby.')

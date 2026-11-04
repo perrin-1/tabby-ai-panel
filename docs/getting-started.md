@@ -37,6 +37,11 @@ mkdir -p ~/.config/tabby/plugins/node_modules
 unzip tabby-ai-panel-<version>.zip -d ~/.config/tabby/plugins/node_modules
 ```
 
+```powershell
+# Windows example (PowerShell)
+Expand-Archive tabby-ai-panel-<version>.zip -DestinationPath "$env:APPDATA\tabby\plugins\node_modules" -Force
+```
+
 Then restart Tabby.
 
 ### From source

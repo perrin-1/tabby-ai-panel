@@ -40,7 +40,7 @@ Tabby provides Angular, RxJS, ng-bootstrap and its own `tabby-*` packages at run
 | `npm test` | Unit tests with `node:test` + `tsx`. |
 | `npm run badges` | Regenerate the README badges in `docs/assets/badges/` from `package.json` and a test run. |
 | `npm run link:tabby` | Symlink the checkout into Tabby's plugins folder. |
-| `npm run pack` | Zip the built plugin → `release/tabby-ai-panel-<version>.zip`. Requires `zip` and a prior build. |
+| `npm run pack` | Zip the built plugin → `release/tabby-ai-panel-<version>.zip`. Requires a prior build, and `zip` or a `tar` that writes zip files (built into Windows 10+ and macOS). |
 
 ## Unit tests
 

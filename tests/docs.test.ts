@@ -8,7 +8,8 @@ import { ALL_TOOLS } from '../src/core/tools'
 import { DEFAULT_CONFIG, HOTKEY_IDS } from '../src/types/config'
 
 const root = path.resolve(__dirname, '..')
-const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8')
+// normalise CRLF so the checks also pass on Windows checkouts with core.autocrlf
+const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8').replace(/\r\n/g, '\n')
 const markdownFiles = ['README.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md', 'scripts/e2e/README.md',
     ...fs.readdirSync(path.join(root, 'docs')).filter(f => f.endsWith('.md')).map(f => `docs/${f}`)]
 
